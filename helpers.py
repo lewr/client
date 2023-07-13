@@ -1,4 +1,3 @@
-
 layout_wrong_en2ru = {
     '`': "ё", '1': "1", '2': "2", '3': "3", '4': "4", '5': "5", '6': "6", '7': "7", '8': "8", '9': "9", '0': "0",
     'q': "й", 'w': "ц", 'e': "у", 'r': "к", 't': "е", 'y': "н", 'u': "г", 'i': "ш", 'o': "щ", 'p': "з", '[': "х",
@@ -21,6 +20,7 @@ layout_translit_ru2en = {
 }
 
 def try_сhange_char(char, layout):
+    """Return change string by transliteration"""
     newchar = "" 
     try:
         newchar = layout[char]
@@ -29,6 +29,7 @@ def try_сhange_char(char, layout):
     return newchar
 
 def try_correct_layout(name,layout):
+    """Return change string by correct layout"""
     corrected_name = ""
     for char in name:
         corrected_name = corrected_name + try_сhange_char(char, layout)
@@ -37,9 +38,24 @@ def try_correct_layout(name,layout):
     return corrected_name
 
 def fix_name(name):
+    """Return option from the transliteration or correcting the layout
+    name   -> fix_name, for example:
+    ghbdtn -> привет
+    привет -> privet
+    privet -> привет
+    """
     fix_name = try_correct_layout(name, layout_wrong_en2ru)
     if not fix_name:
         fix_name = try_correct_layout(name, layout_translit_ru2en)
     if not fix_name:
         fix_name = name
     return fix_name
+
+def check_config(config, req_params):
+    for param in req_params:
+        try:
+            if config(param):
+                pass
+        except:
+            print(f"{param} not set in .env")
+            exit()

@@ -1,19 +1,19 @@
 from decouple import config
+import helpers
 
-try:
-    CONNECTOR = config('CONNECTOR')
-except:
-    print('CONNECTOR option not set')
-    exit()
+req_params=['CONNECTOR']
+helpers.check_config(config, req_params)
 
-if CONNECTOR == 'db':
+if config('CONNECTOR') == 'db':
     import db
     CONNECTOR = db
+elif config('CONNECTOR') == 'api':
+    import api
+    CONNECTOR = api
 else:
     print('Not set or wrong type of connector')
     exit()
 
-
-def find(name, fix_name):
-    result = CONNECTOR.find_servers(name, fix_name)
-    print(result)
+def search(names):
+    result = CONNECTOR.find_servers(names)
+    return(result)

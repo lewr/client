@@ -2,22 +2,19 @@ from decouple import config
 import pymysql
 import helpers
 
-req_params=['DB_HOST','DB_USER','DB_PASS','DB']
+req_params = ['DB_HOST', 'DB_USER', 'DB_PASS', 'DB']
 helpers.check_config(config, req_params)
 
 
-
-
-
-#try:
+# try:
 #    connection = pymysql.connect(
 #        host=DB_HOST,
 #        user=DB_USER,
 #        password=DB_PASS,
 #        database=DB
 #    )
-#except:
-     
+# except:
+
 #    may be need probros...
 #    предупреждаем выводом
 #    try check config
@@ -65,7 +62,4 @@ helpers.check_config(config, req_params)
 def find_servers(names):
     print(names[0])
     print(names[1])
-    return['server1', 'server2']
-
-
-
+    return ['server1', 'server2']
